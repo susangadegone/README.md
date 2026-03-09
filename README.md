@@ -2,7 +2,7 @@ Hi, I'm Susan :)
 
 Healthcare → PM. Building at the intersection of mental health care and AI.
 
-I'm a product manager who builds wellness and productivity apps. I've independently de 13 apps using AI-assisted development, and I bring a decade of mental health and peer counseling experience to how I think about user needs and ethical product design.
+I'm a product manager who builds wellness and productivity apps. I've independently developed 13 apps using AI-assisted development, and I bring a decade of mental health and peer counseling experience to how I think about user needs and ethical product design.
 
 What I Build
 
@@ -14,6 +14,7 @@ What I'm Working On
 
 Learning to build with Python + AI APIs (Claude, OpenAI)
 Looking for: PM roles at mental health or digital health companies
+
 Domain Expertise
 
 Clinical mental health care (direct patient experience)
@@ -21,6 +22,7 @@ Care workflows, session continuity, therapist-patient communication
 HIPAA-sensitive product thinking
 Let's Connect
 
-LinkedIn:(https://www.linkedin.com/in/susannapage/)
+LinkedIn:https://www.linkedin.com/in/susannapage/
 Email: spgadegone@gmail.com
+
 Please take a look at my repos to see what I'm working on!

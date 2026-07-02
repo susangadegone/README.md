@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Daily Bowl — Official Meal Request Form</title>
+<meta name="description" content="A menu presented by the dog, to management (the humans), for consideration.">
+<style>
+  :root {
+    --cream: #fdf6ec;
+    --paper: #fffdf8;
+    --ink: #3b2f2a;
+    --soft: #8a7a6e;
+    --terracotta: #c96f4a;
+    --terracotta-dark: #a85535;
+    --gold: #e2b13c;
+    --line: #e8dccb;
+    --selected: #fbeee2;
+    --shadow: 0 2px 10px rgba(59, 47, 42, 0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    padding-bottom: 110px; /* room for the order bar */
+  }
+
+  .menu-card {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--paper);
+    min-height: 100vh;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+  }
+
+  /* ---------- header ---------- */
+  header {
+    text-align: center;
+    padding: 28px 20px 18px;
+    border-bottom: 3px double var(--line);
+  }
+  .dog-portrait { width: 96px; height: 96px; margin: 0 auto 10px; display: block; }
+  .est { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--soft); }
+  h1 { font-size: 30px; font-weight: normal; letter-spacing: 1px; margin: 4px 0 2px; }
+  .dog-name {
+    font-style: italic; color: var(--terracotta-dark); font-size: 17px;
+    border-bottom: 1px dashed var(--terracotta); cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .subtitle { font-size: 13px; color: var(--soft); margin-top: 8px; font-style: italic; }
+  .status-ticker {
+    margin-top: 14px; font-size: 13px; background: var(--selected);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 6px 14px; display: inline-block; color: var(--terracotta-dark);
+  }
+
+  /* ---------- sections ---------- */
+  section { padding: 22px 20px 6px; }
+  .section-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .section-head h2 { font-size: 20px; font-weight: normal; letter-spacing: 0.5px; white-space: nowrap; }
+  .section-head .rule { flex: 1; border-bottom: 1px solid var(--line); transform: translateY(-4px); }
+  .section-note { font-size: 12.5px; color: var(--soft); font-style: italic; margin-bottom: 12px; }
+
+  .item {
+    width: 100%; text-align: left; font: inherit; color: inherit;
+    background: none; border: 1px solid transparent; border-radius: 10px;
+    padding: 12px 12px; margin: 0 -12px 6px; width: calc(100% + 24px);
+    display: flex; gap: 12px; align-items: flex-start; cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .item:active { transform: scale(0.99); }
+  .item.selected { background: var(--selected); border-color: var(--terracotta); }
+  .item .check {
+    flex: 0 0 auto; width: 24px; height: 24px; border: 1.5px solid var(--soft);
+    border-radius: 50%; display: grid; place-items: center;
+    font-size: 14px; color: transparent; margin-top: 2px;
+    transition: all 0.15s ease;
+  }
+  .item.selected .check { background: var(--terracotta); border-color: var(--terracotta); color: #fff; }
+  .item .body { flex: 1; }
+  .item .name { font-size: 16px; }
+  .item .desc { font-size: 13px; color: var(--soft); font-style: italic; margin-top: 1px; }
+  .item .price { flex: 0 0 auto; font-size: 13px; color: var(--terracotta-dark); white-space: nowrap; margin-top: 3px; }
+
+  /* ---------- footer ---------- */
+  .fine-print {
+    padding: 24px 24px 36px; text-align: center;
+    font-size: 11.5px; color: var(--soft); font-style: italic;
+    border-top: 3px double var(--line); margin-top: 20px;
+  }
+  .fine-print p { margin-bottom: 6px; }
+
+  /* ---------- order bar ---------- */
+  .order-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(253, 246, 236, 0.95);
+    backdrop-filter: blur(6px);
+    border-top: 1px solid var(--line);
+    display: flex; justify-content: center;
+  }
+  .submit-btn {
+    width: 100%; max-width: 448px;
+    font-family: inherit; font-size: 17px; font-style: italic;
+    background: var(--terracotta); color: #fff;
+    border: none; border-radius: 999px; padding: 15px 20px;
+    cursor: pointer; box-shadow: var(--shadow);
+    transition: background 0.15s ease, transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .submit-btn:active { transform: scale(0.98); background: var(--terracotta-dark); }
+  .submit-btn:disabled { background: #cbbfae; cursor: default; }
+
+  /* ---------- receipt overlay ---------- */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(59, 47, 42, 0.45);
+    display: none; align-items: center; justify-content: center; padding: 24px;
+    z-index: 10;
+  }
+  .overlay.open { display: flex; }
+  .receipt {
+    background: var(--paper); max-width: 380px; width: 100%;
+    border-radius: 14px; padding: 26px 24px 22px; text-align: center;
+    box-shadow: 0 12px 40px rgba(59, 47, 42, 0.3);
+    animation: pop 0.25s ease;
+    max-height: 85vh; overflow-y: auto;
+  }
+  @keyframes pop { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .receipt h3 { font-size: 20px; font-weight: normal; margin-bottom: 4px; }
+  .receipt .stamp {
+    display: inline-block; margin: 8px 0; padding: 4px 12px;
+    border: 2px solid var(--terracotta); color: var(--terracotta);
+    border-radius: 6px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    transform: rotate(-3deg);
+  }
+  .receipt ul { list-style: none; text-align: left; margin: 12px 0; border-top: 1px dashed var(--line); border-bottom: 1px dashed var(--line); padding: 10px 4px; }
+  .receipt li { font-size: 14px; padding: 3px 0; }
+  .receipt .quip { font-size: 13.5px; font-style: italic; color: var(--soft); margin: 10px 0 16px; }
+  .receipt button {
+    font-family: inherit; font-size: 15px; font-style: italic;
+    background: none; border: 1.5px solid var(--terracotta);
+    color: var(--terracotta-dark); border-radius: 999px; padding: 10px 24px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="menu-card">
+  <header>
+    <!-- portrait of the chef: white face, black ears, black eye patch -->
+    <svg class="dog-portrait" viewBox="0 0 120 120" role="img" aria-label="Portrait of a white dog with black ears">
+      <!-- ears -->
+      <path d="M28 52 Q18 18 34 10 Q48 16 48 44 Z" fill="#2e2a28"/>
+      <path d="M92 52 Q102 18 86 10 Q72 16 72 44 Z" fill="#2e2a28"/>
+      <!-- head -->
+      <ellipse cx="60" cy="66" rx="34" ry="32" fill="#f6f1e7" stroke="#d9cdb9" stroke-width="1.5"/>
+      <!-- eye patch (left eye, like the boss himself) -->
+      <ellipse cx="46" cy="58" rx="12" ry="13" fill="#3a3532"/>
+      <!-- eyes -->
+      <circle cx="46" cy="59" r="4" fill="#f6f1e7"/>
+      <circle cx="47" cy="60" r="2.2" fill="#1c1917"/>
+      <circle cx="74" cy="59" r="4.5" fill="#1c1917"/>
+      <circle cx="75.5" cy="57.5" r="1.3" fill="#fff"/>
+      <!-- muzzle -->
+      <ellipse cx="60" cy="80" rx="16" ry="13" fill="#fdfaf3"/>
+      <ellipse cx="60" cy="74" rx="7" ry="5" fill="#2e2a28"/>
+      <path d="M60 79 Q60 86 54 88 M60 79 Q60 86 66 88" stroke="#8a7a6e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- distinguished grey whisker chin -->
+      <path d="M50 90 Q60 95 70 90" stroke="#c9beab" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="est">Est. many naps ago &bull; Fine Dining &amp; Floor Snacks</div>
+    <h1>The Daily Bowl</h1>
+    <div>Chef &amp; Sole Customer: <span class="dog-name" id="dogName" title="Tap to edit name">Mr. Big</span></div>
+    <p class="subtitle">A formal meal request, respectfully submitted to Management&nbsp;(you).</p>
+    <div class="status-ticker" id="ticker">Current status: asleep, but food-adjacent.</div>
+  </header>
+
+  <section>
+    <div class="section-head"><h2>&#127859; Breakfast</h2><div class="rule"></div></div>
+    <p class="section-note">Served at sunrise. And whenever I stand in the kitchen looking thin.</p>
+    <div data-course="Breakfast">
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">The Usual</span><span class="desc" style="display:block">My regular kibble, plated with love and slightly overfilled by accident.</span></span><span class="price">1 sit</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">The Usual, But I Stare At It First</span><span class="desc" style="display:block">Same kibble, but I need you to add a little something on top. You know what you did.</span></span><span class="price">2 sits</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">Second Breakfast</span><span class="desc" style="display:block">For when you leave the room and a different human enters. They don't know. Nobody knows.</span></span><span class="price">priceless</span></button>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>&#127829; The People Food Program</h2><div class="rule"></div></div>
+    <p class="section-note">A selection of whatever you're having. I am legally entitled to a portion.</p>
+    <div data-course="People Food">
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">One (1) Bite Tax</span><span class="desc" style="display:block">Applied automatically to all sandwiches. Non-negotiable. I don't make the rules.</span></span><span class="price">eye contact</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">The Thing You Just Dropped</span><span class="desc" style="display:block">Floor jurisdiction is mine. Five-second rule does not apply to me. Zero-second rule.</span></span><span class="price">free</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">A Polite Sample of Your Dinner</span><span class="desc" style="display:block">I will sit very nicely approximately four inches from your plate and vibrate.</span></span><span class="price">1 head tilt</span></button>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>&#129460; Treats</h2><div class="rule"></div></div>
+    <p class="section-note">I was a good boy. I have witnesses.</p>
+    <div data-course="Treats">
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">One Treat</span><span class="desc" style="display:block">A modest, dignified request. A warm-up, if you will.</span></span><span class="price">1 trick</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">Two Treats</span><span class="desc" style="display:block">I did the sit AND the other thing. Check the footage.</span></span><span class="price">2 tricks</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">The Whole Bag</span><span class="desc" style="display:block">Ambitious? Yes. But you left it on the counter, and I believe in myself.</span></span><span class="price">a dream</span></button>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>&#127830; Dinner</h2><div class="rule"></div></div>
+    <p class="section-note">Dinner is at 5:00 PM sharp. Reminders begin at 3:15 PM.</p>
+    <div data-course="Dinner">
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">Dinner</span><span class="desc" style="display:block">The main event. The reason I got out of bed today. (I did not get out of bed today.)</span></span><span class="price">on time pls</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">Dinner, Again</span><span class="desc" style="display:block">I have consulted my stomach and we both agree the first dinner didn't count.</span></span><span class="price">worth a try</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">The Pre-Bed Snack</span><span class="desc" style="display:block">A small nightcap to fuel 14 hours of intensive sleeping. I have a big nap tomorrow.</span></span><span class="price">1 snuggle</span></button>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>&#128167; Beverages</h2><div class="rule"></div></div>
+    <p class="section-note">Hydration is important. So is judging the vintage.</p>
+    <div data-course="Beverages">
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">Fresh Water</span><span class="desc" style="display:block">Cold, crisp, refilled while I supervise. Served in The Good Bowl only.</span></span><span class="price">free refills</span></button>
+      <button class="item"><span class="check">&#10003;</span><span class="body"><span class="name">Water, But From Your Glass</span><span class="desc" style="display:block">Objectively identical to my water. Subjectively? Magnificent.</span></span><span class="price">forgiveness</span></button>
+    </div>
+  </section>
+
+  <div class="fine-print">
+    <p>All orders are final. Especially in my mind, where they have already been eaten.</p>
+    <p>Gratuity (belly rubs) not included but strongly implied.</p>
+    <p>The management (me) reserves the right to also want whatever the cat has. There is no cat. Stay alert.</p>
+  </div>
+</div>
+
+<div class="order-bar">
+  <button class="submit-btn" id="submitBtn" disabled>Select items to begin your order &#128054;</button>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="receipt">
+    <h3>Order Received</h3>
+    <div class="stamp">Approved by dog</div>
+    <ul id="receiptItems"></ul>
+    <p class="quip" id="receiptQuip"></p>
+    <button id="closeReceipt">Very well. Dismissed.</button>
+  </div>
+</div>
+
+<script>
+  const items = document.querySelectorAll('.item');
+  const submitBtn = document.getElementById('submitBtn');
+  const overlay = document.getElementById('overlay');
+  const receiptItems = document.getElementById('receiptItems');
+  const receiptQuip = document.getElementById('receiptQuip');
+  const ticker = document.getElementById('ticker');
+  const dogName = document.getElementById('dogName');
+
+  // The chef's name is editable and remembered on this device.
+  dogName.textContent = localStorage.getItem('dogName') || 'Mr. Big';
+  dogName.addEventListener('click', () => {
+    const name = prompt('The chef would like to update his professional name:', dogName.textContent);
+    if (name && name.trim()) {
+      dogName.textContent = name.trim();
+      localStorage.setItem('dogName', name.trim());
+    }
+  });
+
+  const statuses = [
+    'Current status: asleep, but food-adjacent.',
+    'Hunger level: CRITICAL. (Unchanged since breakfast.)',
+    'Last meal: 20 minutes ago. Emotionally: 84 years ago.',
+    'Now accepting snacks. Also later. Also always.',
+    'Napping. Will wake instantly for the cheese drawer.',
+    'Currently dreaming about the menu below.',
+  ];
+  let tick = 0;
+  setInterval(() => {
+    tick = (tick + 1) % statuses.length;
+    ticker.textContent = statuses[tick];
+  }, 4000);
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('selected');
+      updateSubmit();
+    });
+  });
+
+  function selectedItems() {
+    return [...document.querySelectorAll('.item.selected')].map(el => ({
+      course: el.closest('[data-course]').dataset.course,
+      name: el.querySelector('.name').textContent,
+    }));
+  }
+
+  function updateSubmit() {
+    const n = selectedItems().length;
+    submitBtn.disabled = n === 0;
+    submitBtn.textContent = n === 0
+      ? 'Select items to begin your order \u{1F436}'
+      : `Ring the dinner bell \u{1F514} (${n} item${n > 1 ? 's' : ''})`;
+  }
+
+  const quips = [
+    'A dog has been dispatched to stare at you until this order is fulfilled.',
+    'Please note: “later” is not an accepted delivery window.',
+    'Management has been notified via intense, unblinking eye contact.',
+    'Estimated wait time: unacceptable. Please hurry.',
+    'Thank you. I will now nap aggressively near the kitchen until service begins.',
+    'Your chef has already forgotten he ordered this and will be thrilled twice.',
+  ];
+
+  submitBtn.addEventListener('click', () => {
+    receiptItems.innerHTML = selectedItems()
+      .map(i => `<li>• <strong>${i.course}:</strong> ${i.name}</li>`)
+      .join('');
+    receiptQuip.textContent = quips[Math.floor(Math.random() * quips.length)];
+    overlay.classList.add('open');
+  });
+
+  document.getElementById('closeReceipt').addEventListener('click', () => {
+    overlay.classList.remove('open');
+    items.forEach(i => i.classList.remove('selected'));
+    updateSubmit();
+  });
+</script>
+
+</body>
+</html>

@@ -8,7 +8,7 @@ I know what that looks like. I was there. You can't get that from a user persona
 
 That background shapes concrete product decisions: how I think about retention mechanics, notification ethics, crisis features, and what "engagement" actually means when someone is having a hard week. I build with Cursor, Claude, and AI APIs — and I write about digital health product design on Substack.
 
-### What I'm building
+### A few projects I'm working on
 
 - **[Roam](https://github.com/susangadegone/roam)** — an SF Bay Area wellness resource directory, built with SwiftUI and an Airtable backend, designed around behavioral activation framing to help users take small, concrete steps toward care instead of just browsing a list.
 - **[Cozy](https://github.com/susangadegone/Cozy)** — a no-shame home management app, built with SwiftUI and Supabase, that treats household upkeep as a mental-load problem rather than a productivity one.

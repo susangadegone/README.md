@@ -19,8 +19,10 @@ That background shapes concrete product decisions: how I think about retention m
 ### Domain expertise
 
 - Clinical mental health care (direct patient-facing experience across clinical, school, and residential settings)
+- Qualitative user research — translating frontline, lived experience into concrete product requirements, not just survey data
+- Trust and vulnerability-sensitive product design — building for users who are stressed, scared, or exposed, across healthcare, fintech, safety, and other high-stakes spaces
+- Compliance-aware product thinking — HIPAA-specific experience that generalizes to other regulated, high-stakes data environments
 - Care workflows, session continuity, and therapist-patient communication breakdowns
-- HIPAA-sensitive product thinking
 
 ### Let's connect
 

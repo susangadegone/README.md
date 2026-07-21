@@ -1,34 +1,32 @@
-Hi, I'm Susan
+Hi, I'm Susan :)
 
-I spent a decade in behavioral health sitting with young people through some of the hardest moments of their lives. I wanted to reach more than one person at a time — that's why I'm in product.
+I spent five-plus years in behavioral health, working with young people at their worst moments. I wanted to reach more than one person at a time. That's why I'm in product now.
 
-AI and technology are increasingly pushing out mental health solutions that can reach more people than the care system ever could. I want to make sure those products are actually ready for the people using them — not just technically functional, but built with real empathy for what a struggling user looks like when they open an app.
+AI is moving fast into mental health and wellness. A lot of what's shipping is technically solid but built without much sense of what it's like to be the person opening the app when things are bad. I know what that looks like, because I was there for years. That's not something you get from a persona doc.
 
-I know what that looks like. I was there. You can't get that from a user persona.
+That background shows up in specific decisions: like how I think about retention mechanics, notification timing, crisis features, and what "engagement" should mean for someone having a hard week. I build with Cursor, Claude, and AI APIs, and I write about digital health product design on Substack: substack.com/@suzanhi2products
 
-That background shapes concrete product decisions: how I think about retention mechanics, notification ethics, crisis features, and what "engagement" actually means when someone is having a hard week. I build with Cursor, Claude, and AI APIs — and I write about digital health product design on Substack.
+Portfolio: susangadegone.github.io/susan-g-portfolio/
 
-My Portfolio: https://susangadegone.github.io/susan-g-portfolio/ 
+What I'm building
 
- A few projects I'm working on
+Roam — a wellness resource directory for the SF Bay Area, built with SwiftUI and Airtable. Uses behavioral activation framing so people take one small step toward care instead of just scrolling a list.
+github.com/susangadegone/roam
 
-- [Roam](https://github.com/susangadegone/roam) — an SF Bay Area wellness resource directory, built with SwiftUI and an Airtable backend, designed around behavioral activation framing to help users take small, concrete steps toward care instead of just browsing a list.
-- [Cozy](https://github.com/susangadegone/Cozy) — a no-shame home management app, built with SwiftUI and Supabase, that treats household upkeep as a mental-load problem rather than a productivity one.
-- [SF Tour Reserve App](https://github.com/susangadegone/SF-Tour-Reserve-App) — an offline-first web app for planning day trips in San Francisco, built with Next.js and TypeScript with Mapbox for maps and Zustand for local-storage state, for visitors and locals who want to browse, favorite, and build timed itineraries without needing an account.
-- [Celebrate India Festivals](https://github.com/susangadegone/Celebrate-India-Festivals) — a Next.js and TypeScript site cataloging Hindi and Marathi festivals with history, recipes, decoration guides, and a calendar, built for people wanting to learn about or plan around Indian cultural celebrations.
+Cozy — a home management app built with SwiftUI and Supabase. Treats household upkeep as a mental load problem, not a productivity problem.
+github.com/susangadegone/Cozy
 
+Domain expertise
 
-### Domain expertise
+Direct clinical mental health experience across clinical, school, and residential settings
+Qualitative user research: turning frontline, lived experience into product requirements, not just survey output
+Designing for users who are stressed, scared, or exposed — healthcare, fintech, safety, and other high-stakes spaces
+Compliance-aware product thinking, with HIPAA experience that generalizes to other regulated environments
+Care workflows, session continuity, and where therapist-patient communication tends to break down
 
-- Clinical mental health care (direct patient-facing experience across clinical, school, and residential settings)
-- Qualitative user research — translating frontline, lived experience into concrete product requirements, not just survey data
-- Trust and vulnerability-sensitive product design — building for users who are stressed, scared, or exposed, across healthcare, fintech, safety, and other high-stakes spaces
-- Compliance-aware product thinking — HIPAA-specific experience that generalizes to other regulated, high-stakes data environments
-- Care workflows, session continuity, and therapist-patient communication breakdowns
+Let's connect
 
-### Let's connect
+LinkedIn: linkedin.com/in/susannapage
+Email: spgadegone@gmail.com
 
-- LinkedIn: [linkedin.com/in/susannapage](https://www.linkedin.com/in/susannapage/)
-- Email: spgadegone@gmail.com
-
-Take a look at my repos to see what I'm working on.
+Take a look at the repos to see what I'm working on.
